@@ -15,6 +15,30 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
+import androidx.compose.material3.*
+import androidx.compose.ui.graphics.Color
+
+private val CustomDarkColorScheme = darkColorScheme(
+    primary = PrimaryColor,
+    secondary = SecondaryColor,
+    background = DarkBackground,
+    surface = DarkBackground,
+    onPrimary = Color.Black,
+    onSecondary = Color.Black,
+    onBackground = OnDarkBackground,
+    onSurface = OnDarkBackground
+)
+
+@Composable
+fun CustomTheme(content: @Composable () -> Unit) {
+    MaterialTheme(
+        colorScheme = CustomDarkColorScheme,
+        typography = Typography(), // Default typography or customize it
+        content = content
+    )
+}
+
+
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
     secondary = PurpleGrey80,

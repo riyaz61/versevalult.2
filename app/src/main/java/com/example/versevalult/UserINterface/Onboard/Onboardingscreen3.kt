@@ -78,7 +78,7 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
             modifier = Modifier.fillMaxWidth().padding(20.dp)
         ) {
             Button(
-                onClick = { navController.navigate("Sign_In_Page") },
+                onClick = { navController.navigate("Login") },
                 modifier = Modifier
                     .width(550.dp), // Adjust width as needed
                 colors = ButtonDefaults.buttonColors(
@@ -87,7 +87,7 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
                 shape = RoundedCornerShape(12) // Rounded edges
             ) {
                 Text(
-                    text = "Sign in",
+                    text = "Login",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White,

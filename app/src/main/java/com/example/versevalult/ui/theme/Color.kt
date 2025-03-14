@@ -2,6 +2,13 @@ package com.example.versevalult.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+
+val DarkBackground = Color(0xFF121212)
+val OnDarkBackground = Color(0xFFFFFFFF)
+val PrimaryColor = Color(0xFFBB86FC)
+val SecondaryColor = Color(0xFF03DAC6)
+
+
 val Purple80 = Color(0xFFD0BCFF)
 val PurpleGrey80 = Color(0xFFCCC2DC)
 val Pink80 = Color(0xFFEFB8C8)

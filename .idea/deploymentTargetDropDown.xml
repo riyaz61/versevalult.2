@@ -2,6 +2,21 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="HomePagePreview">
+        <State />
+      </entry>
+      <entry key="HomePagePreview (1)">
+        <State />
+      </entry>
+      <entry key="PoemCardPreview">
+        <State />
+      </entry>
+      <entry key="PoemCardPreview (1)">
+        <State />
+      </entry>
+      <entry key="PoetGridPreview">
+        <State />
+      </entry>
       <entry key="app">
         <State />
       </entry>
