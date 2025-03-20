@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -59,7 +60,7 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
                 fontWeight = FontWeight.SemiBold,
                 textAlign = TextAlign.Center,
                 fontFamily = customFontFamily,
-                color = Color.White
+                color = Color.Black
             )
 
             Spacer(modifier = Modifier.height(10.dp))
@@ -69,7 +70,7 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
                 fontSize = 15.sp,
                 textAlign = TextAlign.Center,
                 fontFamily = customFontFamily,
-                color = Color.White
+                color = Color.Black
             )
         }
 
@@ -90,7 +91,7 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
                     text = "Login",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White,
+                    color = Color.Black,
                     textAlign = TextAlign.Center
                 )
             }
@@ -98,9 +99,9 @@ fun OnboardingScreen3(navController: NavController, modifier: Modifier = Modifie
             Spacer(modifier = Modifier.height(10.dp)) // Add 20 dp gap between buttons
 
             Button(
-                onClick = { navController.navigate("SignUp") },
+                onClick = { navController.navigate("Register") },
                 modifier = Modifier
-                    .width(550.dp).border(2.dp, Color.Black), // Adjust width as needed
+                    .width(550.dp).border(2.dp, Color.Black).border(1.dp, Color.Black), // Adjust width as needed
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.White // Adjust color as needed
                 ),

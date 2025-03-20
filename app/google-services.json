@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "383826282540",
+    "firebase_url": "https://versevault-fd641-default-rtdb.firebaseio.com",
+    "project_id": "versevault-fd641",
+    "storage_bucket": "versevault-fd641.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:383826282540:android:c2cfab12e07976816ba989",
+        "android_client_info": {
+          "package_name": "com.example.versevalult"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR2poizOtakFNIbCEHHHaJXEDdXqW3qd4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -28,6 +28,21 @@ private val CustomDarkColorScheme = darkColorScheme(
     onBackground = OnDarkBackground,
     onSurface = OnDarkBackground
 )
+@Composable
+fun AppTheme(content: @Composable () -> Unit) {
+    val darkColors = darkColorScheme(
+        background = Color.Black,
+        surface = Color.DarkGray,
+        primary = Color.Yellow,
+        onBackground = Color.White
+    )
+    MaterialTheme(
+        colorScheme = darkColors,
+        typography = Typography,
+        content = content
+    )
+}
+
 
 @Composable
 fun CustomTheme(content: @Composable () -> Unit) {

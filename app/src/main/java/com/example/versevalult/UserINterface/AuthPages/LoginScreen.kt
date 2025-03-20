@@ -1,9 +1,12 @@
 package com.example.versevalult.UserINterface.AuthPages
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -15,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -35,10 +39,11 @@ import com.example.versevalult.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen(navController: NavHostController) {
-    val backgroundColor = Color(0xFF121212)
+    val backgroundColor = Color.White
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    val passwordVisible = remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Surface(
         modifier = Modifier
@@ -86,7 +91,6 @@ fun LoginScreen(navController: NavHostController) {
                     )
                 }
 
-
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Email TextField
@@ -95,17 +99,14 @@ fun LoginScreen(navController: NavHostController) {
                     onValueChange = { email = it },
                     label = { Text("Email", color = Color.Gray) },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.White,
+                        focusedBorderColor = Color.Black,
                         unfocusedBorderColor = Color.Gray,
-                        cursorColor = Color.White
+                        cursorColor = Color.Black
                     ),
-                    textStyle = TextStyle(color = Color.White), // Set text color here
+                    textStyle = TextStyle(color = Color.Black),
                     modifier = Modifier.fillMaxWidth(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                 )
-
-
-
 
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -115,13 +116,12 @@ fun LoginScreen(navController: NavHostController) {
                     onValueChange = { password = it },
                     label = { Text("Password", color = Color.Gray) },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = Color.White,
+                        focusedBorderColor = Color.Black,
                         unfocusedBorderColor = Color.Gray
                     ),
                     modifier = Modifier.fillMaxWidth(),
-                    textStyle = TextStyle(color = Color.White), // Set text color here
+                    textStyle = TextStyle(color = Color.Black),
                     visualTransformation = PasswordVisualTransformation(),
-
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                 )
 
@@ -129,40 +129,53 @@ fun LoginScreen(navController: NavHostController) {
 
                 // Login Button
                 Button(
-                    onClick = {},
+                    onClick = {
+                        // Validate inputs
+                        if (email.isBlank() || password.isBlank()) {
+                            Toast.makeText(context, "Email and Password cannot be empty.", Toast.LENGTH_SHORT).show()
+                            return@Button
+                        }
+
+                        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                            Toast.makeText(context, "Please enter a valid email address.", Toast.LENGTH_SHORT).show()
+                            return@Button
+                        }
+
+                        isLoading = true // Show loader
+                        loginUser(email, password) { result ->
+                            isLoading = false // Hide loader
+                            when (result) {
+                                "success" -> {
+                                    Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
+                                    navController.navigate("Main") // Navigate to main page
+                                }
+                                "invalid_credentials" -> {
+                                    Toast.makeText(context, "Invalid email or password.", Toast.LENGTH_LONG).show()
+                                }
+                                "user_disabled" -> {
+                                    Toast.makeText(context, "This account has been disabled.", Toast.LENGTH_LONG).show()
+                                }
+                                else -> {
+                                    Toast.makeText(context, "Error: $result", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(50.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF00C853))
                 ) {
-                    Text(text = "Login", color = Color.White, fontSize = 16.sp)
+                    if (isLoading) {
+                        CircularProgressIndicator(color = Color.White, strokeWidth = 2.dp)
+                    } else {
+                        Text(text = "Login", color = Color.White, fontSize = 16.sp)
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Text(
-                    text = "Or sign in with",
-                    color = Color.Gray,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                // Google Sign-in Button
-                Button(
-                    onClick = {},
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White)
-                ) {
-                    Text(text = "Google", color = Color.Black, fontSize = 16.sp)
-                }
-
-                Spacer(modifier = Modifier.height(24.dp))
-
-                // Login Text
+                // Registration Prompt
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center
@@ -175,13 +188,11 @@ fun LoginScreen(navController: NavHostController) {
                         modifier = Modifier.clickable { navController.navigate("Register") }
                     )
                 }
-
             }
-
-
-
         }
     }
 }
+
+
 
 

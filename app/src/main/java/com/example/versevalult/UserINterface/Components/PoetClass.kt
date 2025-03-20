@@ -5,14 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -27,13 +23,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.example.versevalult.R
 import com.example.versevalult.UserINterface.DataClass.Poet
-import com.example.versevault.UserInterface.MainPages.PoetList
+
 
 @Composable
 fun PoetCard(
-    imageResId: Int,
+    imageResId: String,
     poetName: String,
     totalPoems: Int,
     modifier: Modifier = Modifier
@@ -51,8 +48,8 @@ fun PoetCard(
     ) {
         // Poet Image
 
-        Image(
-            painter = painterResource(id = imageResId),
+        AsyncImage(
+            model = imageResId,
             contentDescription = "Poem Image",
             modifier = Modifier
                 .fillMaxWidth()
@@ -91,11 +88,11 @@ fun PoetCard(
 // Sample Data Function
 fun getSamplePoets(): List<Poet> {
     return listOf(
-        Poet("William Shakespeare", R.drawable.login, 38),
-        Poet("Emily Dickinson", R.drawable.login, 1800),
-        Poet("Robert Frost", R.drawable.login, 100),
-        Poet("Langston Hughes", R.drawable.login, 50),
-        Poet("Maya Angelou", R.drawable.login, 100)
+        Poet(name = "William Shakespeare", image = "https://image.pollinations.ai/prompt/user3", poem =  emptyList()),
+        Poet(name = "Emily Dickinson",image = "https://image.pollinations.ai/prompt/user3", poem =emptyList()),
+        Poet(name ="Robert Frost",image =  "https://image.pollinations.ai/prompt/user3", poem =emptyList()),
+        Poet(name ="Langston Hughes",image =  "https://image.pollinations.ai/prompt/user3", poem =emptyList()),
+        Poet(name ="Maya Angelou", image = "https://image.pollinations.ai/prompt/user3", poem =emptyList())
     )
 }
 
@@ -106,3 +103,35 @@ fun PoetGridPreview() {
         PoetList(poets = getSamplePoets())
     }
 }
+
+@Composable
+fun PoetList(poets: List<Poet>, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(5.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        poets.forEach { poet ->
+            PoetCard(
+                imageResId = poet.image,
+                poetName = poet.name,
+                totalPoems = poet.poem.size,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .background(
+                        MaterialTheme.colorScheme.surface,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .border(
+                        1.dp,
+                        MaterialTheme.colorScheme.outline,
+                        shape = RoundedCornerShape(12.dp)
+                    )
+                    .shadow(4.dp, RoundedCornerShape(12.dp)) // Adding shadow effect
+            )
+        }
+    }
+}
+

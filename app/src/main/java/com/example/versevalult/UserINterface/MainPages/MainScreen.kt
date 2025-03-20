@@ -26,7 +26,7 @@ import com.example.versevault.UserInterface.MainPages.HomePage
 fun MainScreen(navController: NavHostController) {
     val navItemList = listOf(
         NavItem("Home", painterResource(id = R.drawable.home)),
-        NavItem("Explore", painterResource(id = R.drawable.love)),
+
         NavItem("Profile", painterResource(R.drawable.user))
     )
 
@@ -57,9 +57,9 @@ fun MainScreen(navController: NavHostController) {
     ) {
         // Pass the NavController to each screen
         when (selectedIndex) {
-            0 -> HomePage() // Pass NavController here
-            1 -> LovePage() // Pass NavController here
-            2 -> UserPage() // Pass NavController here
+            0 -> HomePage(navController) // Pass NavController here
+
+            1 -> EditPage(navController) // Pass NavController here
         }
     }
 }
